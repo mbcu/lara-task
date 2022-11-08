@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\CountryList;
-
+use App\Notifications\VerifyEmailQueued;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -18,6 +18,8 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<int, string>
      */
+
+	  
     protected $fillable = [
         'name',
         'email',
@@ -39,6 +41,16 @@ class User extends Authenticatable implements MustVerifyEmail
 			return $this->belongsTo(CountryList::class,'country_id');
 
 	 }
+
+	 /**
+	* Send the queued email verification notification.
+	*
+	* @param  string  $token
+	* @return void
+	*/
+	public function sendEmailVerificationNotification(){
+		$this->notify(new VerifyEmailQueued);
+	}	
     /**
      * The attributes that should be cast.
      *
