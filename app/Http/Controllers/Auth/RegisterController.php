@@ -50,10 +50,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255','min:5'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-				'birth'=>['required', 'date','after_or_equal:'.\Carbon\Carbon::now()->subYears(18)->format('Y-m-d'),],
+            'password' => ['required', 'string', 'min:8',],
+				'birth'=>['required', 'date','before:-18 years',],
 				'country_id'=>['required']
         ]);
     }

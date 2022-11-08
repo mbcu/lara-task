@@ -23,13 +23,13 @@ class RegistrationRequest extends FormRequest
      */
     public function rules()
     {
-		   $minAge = ( ! empty($parameters)) ? (int) $parameters[0] : 13;
+		    $todayDate = date('m/d/Y');
+
     
         return [
 				'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
-				'birth'=>['required', 'date'],
 				'country_id'=>['required']
         ];
     }
